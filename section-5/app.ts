@@ -1,59 +1,37 @@
-class Department {
-	// private name: string;
-	private employees: string[] = [];
+type AddFn = (a: number, b: number) => number;
 
-	constructor(private readonly id: string, private name: string) {
-		// this.id = id;
-		// this.name = name;
+let add: AddFn;
+
+add = (n1: number, n2: number) => {
+	return n1 + n2;
+};
+
+interface Named {
+	readonly name: string;
+	outputName?: string;
+}
+
+interface Greetable extends Named {
+	greet(phrase: string): void;
+}
+
+class Person implements Greetable {
+	name: string;
+	age: number;
+
+	constructor(n: string, age: number) {
+		this.name = n;
+		this.age = age;
 	}
 
-	describe(this: Department) {
-		console.log("Department: " + this.name);
-	}
-
-	addEmployee(employee: string) {
-		this.employees.push(employee);
-	}
-
-	printEmployeeInformation() {
-		console.log(this.employees.length);
-		console.log(this.employees);
+	greet(phrase: string) {
+		console.log(phrase, this.name);
 	}
 }
 
-class ITDepartment extends Department {
-	admins: string[];
+let user1: Greetable;
 
-	constructor(id: string, admins: string[]) {
-		super(id, "IT");
-		this.admins = admins;
-	}
-}
+user1 = new Person("Matilda", 31);
 
-class AccountingDepartment extends Department {
-	constructor(id: string, private reports: string[]) {
-		super(id, "Accounting");
-	}
-
-	addReport(report: string) {
-		this.reports.push(report);
-	}
-}
-
-const it = new ITDepartment("d2", ["Tilda"]);
-console.log(it);
-
-const accounting = new AccountingDepartment("d1", []);
-
-accounting.addReport("The first report...");
-console.log(accounting);
-accounting.describe();
-
-// const accountingCopy = { name: "DUMMY", describe: accounting.describe };
-// accountingCopy.describe();
-
-// accounting.employees[2] = "Matilda";
-
-accounting.addEmployee("Vincent");
-accounting.addEmployee("Markus");
-accounting.printEmployeeInformation();
+user1.greet("Hiii");
+console.log(user1);
