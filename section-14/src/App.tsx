@@ -11,15 +11,22 @@ function App() {
 	]);
 
 	const todoAddHandler = (text: string) => {
-		console.log(text);
 		const id = "todo-" + todos.length + 1;
-		setTodos([...todos, { id, text }]);
+		setTodos((prevTodos) => {
+			return [...prevTodos, { id, text }];
+		});
+	};
+
+	const todoDeleteHandler = (id: string) => {
+		setTodos((prevTodos) => {
+			return prevTodos.filter((todo) => todo.id !== id);
+		});
 	};
 
 	return (
 		<div className="App">
 			<NewTodo onAddTodo={todoAddHandler} />
-			<TodoList todos={todos} />
+			<TodoList todos={todos} onDeleteTodo={todoDeleteHandler} />
 		</div>
 	);
 }

@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import "./NewTodo.css";
 
 interface Props {
 	onAddTodo: (todoText: string) => void;
@@ -10,13 +11,12 @@ function NewTodo({ onAddTodo }: Props) {
 	const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const enteredText = inputRef.current?.value;
-		console.log(enteredText);
 		onAddTodo(enteredText!);
 	};
 
 	return (
 		<form onSubmit={submitHandler}>
-			<div>
+			<div className="form-control">
 				<label htmlFor="todo-text">Todo</label>
 				<input type="text" id="todo-text" ref={inputRef} />
 			</div>
